@@ -1,12 +1,11 @@
 # my_async
-# Javascript-Concepts
-<b>So, what does this Repo have?</b> <br />
-This repository very basic and bare bones implementation of some of the methods of the "async" library. It also has a asyncTest.js file where I've tested them out.
+<b>What is this repo about?</b> <br />
+This repository contains very basic and bare bones implementation of some of the methods of the "async" library. It also has a asyncTest.js file where I've tested them out.
 <br/>
 [Download NodeJS to experiment!](https://nodejs.org/en/download/)
 
 ---------------------------------------------------------------------------------------------------------------
-If you wish to contribute to this repository with your take on the async library, don't hestitate.
+If you wish to contribute to this repository, don't hestitate.
 Also if you've any suggestions, please do help me improve with your constructive criticism.
 
 I'm a social animal, so you can contact me on
