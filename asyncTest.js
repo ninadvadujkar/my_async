@@ -24,6 +24,18 @@ var funcs = [
     }
 ];
 
+async.waterfall([
+    (cb) => {
+        return cb(null, 'one', 'two');
+    },
+    (arg1, arg2, cb) => {
+        return cb(null, 'final');
+    }
+
+], (err, resp) => {
+    console.log("Done!");
+    console.log(err, resp);
+});
 let arr = [1, 2, 3, 4, 5];
 /*console.log("Testing parallel execution!!!");
 async.parallel(funcs, function(err, res) {
@@ -41,7 +53,7 @@ async.parallel(funcs, function(err, res) {
     });
 });*/
 
-async.each(arr, (i, callback) => {
+/*async.each(arr, (i, callback) => {
     setTimeout(() => {
         console.log("Value of i " + i);
         //if(i == 2) return callback(true);
@@ -52,4 +64,4 @@ async.each(arr, (i, callback) => {
         throw err;
     }
     console.log("Done!!!");
-});
+});*/

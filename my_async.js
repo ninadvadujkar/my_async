@@ -9,6 +9,7 @@ module.exports.parallel = parallelAsync;
 module.exports.series = seriesAsync;
 module.exports.parallelLimit = parallelLimit;
 module.exports.each = each;
+module.exports.waterfall = waterfall;
 
 function each(arr, cb1, cb2) {
     let len = arr.length;
@@ -23,6 +24,54 @@ function each(arr, cb1, cb2) {
             }
         });
     });
+}
+
+function waterfall(funcs, cb) {
+    processWaterfall(funcs, [], (err, resp) => {
+        if(err) {
+            return cb(err, null);
+        }
+        return cb(null, resp);
+    });
+}
+
+function processWaterfall(funcs, nextData, callback) {
+    //console.log(nextData);
+    // Shift out each function
+    let f = funcs.shift();
+    // When we have shifted out all functions return the final result
+    if(!f) {
+        return callback(null, nextData[0]);
+    }
+    // Execute each function and keep on calling processWaterfall recursively
+    // until we are done with executing all functions in waterfall.
+    if(nextData.length === 0) {
+        console.log("Executing First function!");
+        f((...args) => {
+            console.log(args);
+            if(args[0]) {
+                return callback(args[0], null);
+            }
+            var nextData = [];
+            for(var i = 1; i < args.length; i++) {
+                nextData.push(args[i]);
+            }
+            return processWaterfall(funcs, nextData, callback);
+        });
+    } else {
+        // Executing other functions
+        nextData.push((...args) => {
+            if(args[0]) {
+                return callback(args[0], null);
+            }
+            var nextData = [];
+            for(var i = 1; i < args.length; i++) {
+                nextData.push(args[i]);
+            }
+            return processWaterfall(funcs, nextData, callback);
+        });
+        f.apply(null, nextData);
+    }
 }
 
 function parallelAsync(funcs, cb) {
