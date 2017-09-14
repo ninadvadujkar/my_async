@@ -3,7 +3,7 @@
     @file my_async.js
     @author Ninad U. Vadujkar
 */
-
+const _ = require('lodash');
 module.exports.parallel = parallelAsync;
 module.exports.series = seriesAsync;
 module.exports.each = each;
@@ -21,7 +21,6 @@ function parallelAsync(funcs, cb) {
     // Get the length of array
     let length = funcs.length;
     let results = [];
-    console.log(funcs);
     // Fire all the async operations and wait for each of them to finish
     // Fill the array with results as each on of them gets over
     // Return the array
@@ -50,7 +49,9 @@ function parallelAsync(funcs, cb) {
  */
 function seriesAsync(funcs, cb) {
     let results = [];
-    processSeries(funcs, results, (err, resp) => {
+    // Deep clone the funcs array as we don't want to modify the input funcs array
+    var clonedFuncsArr = _.cloneDeep(funcs);
+    processSeries(clonedFuncsArr, results, (err, resp) => {
         if(err) {
             return cb(err, null);
         }
@@ -106,7 +107,9 @@ function each(arr, cb1, cb2) {
  * @param {callback} cb - Callback returning either error or result returned by last function in array
  */
 function waterfall(funcs, cb) {
-    processWaterfall(funcs, [], (err, resp) => {
+    // Deep clone the funcs array as we don't want to modify the input funcs array
+    var clonedFuncsArr = _.cloneDeep(funcs);
+    processWaterfall(clonedFuncsArr, [], (err, resp) => {
         if(err) {
             return cb(err, null);
         }
@@ -151,7 +154,9 @@ function parallelLimit(funcs, limit, cb) {
     // Return the array
     let curr = 1;
     console.log('limit ' + limit);
-    processParallelLimit(curr, limit, funcs, results, (err, resp) => {
+    // Deep clone the funcs array as we don't want to modify the input funcs array
+    var clonedFuncsArr = _.cloneDeep(funcs);
+    processParallelLimit(curr, limit, clonedFuncsArr, results, (err, resp) => {
         if(err) {
             return cb(err, null);
         }

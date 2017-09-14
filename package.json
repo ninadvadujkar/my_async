@@ -26,5 +26,8 @@
   "homepage": "https://github.com/ninadvadujkar/my_async#readme",
   "devDependencies": {
     "jsdoc": "^3.5.5"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
   }
 }
