@@ -1,0 +1,30 @@
+{
+  "name": "my_async",
+  "version": "1.0.0",
+  "description": "This repository contains very basic and bare bones implementation of some of the methods of the \"async\" library. It also has a asyncTest.js file where I've tested them out. ",
+  "main": "my_async.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninadvadujkar/my_async.git"
+  },
+  "keywords": [
+    "async",
+    "nodejs",
+    "javascript",
+    "parallel",
+    "series",
+    "waterfall"
+  ],
+  "author": "Ninad U. Vadujkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninadvadujkar/my_async/issues"
+  },
+  "homepage": "https://github.com/ninadvadujkar/my_async#readme",
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
+  }
+}
