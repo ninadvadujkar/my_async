@@ -168,18 +168,30 @@ function processParallelLimit(curr, limit, funcs, results, cb) {
     if(funcs.length === 0) {
         return cb(null, results);
     }
-    while(curr <= limit) {
+    // If only one entry is remaining just execute it and return.
+    if(funcs.length == 1) {
         let f = funcs.shift();
         f((err, resp) => {
             if(err) {
                 return cb(err, null);
             }
-            curr--;
             results.push(resp);
-            if(curr == 1) {
-                return processParallelLimit(curr, limit, funcs, results, cb);
-            }
+            return processParallelLimit(curr, limit, funcs, results, cb);
         });
-        curr++;
-    }   
+    } else {
+        while(curr <= limit) {
+            let f = funcs.shift();
+            f((err, resp) => {
+                if(err) {
+                    return cb(err, null);
+                }
+                curr--;
+                results.push(resp);
+                if(curr == 1) {
+                    return processParallelLimit(curr, limit, funcs, results, cb);
+                }
+            });
+            curr++;
+        }
+    }  
 }
